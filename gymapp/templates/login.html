@@ -8,17 +8,17 @@
 <body>    
     <h2>USER LOGIN</h2><br>    
     <div class="login">    
-    <form id="login" method="post" action="{% url 'userlogin' %}"> 
+    <form method="post" action="{% url 'userlogin' %}"> 
         {% csrf_token %}   
         <label><b>User Name     
         </b>    
         </label>    
-        <input type="text" name="Uname" id="Uname" placeholder="Username">    
+        <input type="text" name="uname" id="Uname" placeholder="Username">    
         <br><br>    
         <label><b>Password     
         </b>    
         </label>    
-        <input type="Password" name="Pass" id="Pass" placeholder="Password">    
+        <input type="Password" name="passw" id="Pass" placeholder="Password">    
         <br><br>    
         <button type= "submit" class="btn">Login</button>     
         <br><br>    

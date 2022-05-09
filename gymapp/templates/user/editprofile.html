@@ -1,5 +1,5 @@
 {% extends 'user/userbase.html' %}
-
+{% load static %}
 
 {% block content %}
 
@@ -37,7 +37,19 @@
         </div>
         <div class="form-group">
             <label for="photo">Photo</label><br>
-            <img src="{{umember.user_photo.url}}" alt="" id="photo" class="w-25">
+
+
+                {% if umember.user_photo == '/static/image/default.png' %}
+                    
+                <img src="{% static 'image/default.png' %}" class="card-img-top ed-img rounded-circle">
+                    
+                {% else %}
+                        
+                <img src="{{umember.user_photo.url}}" alt="" id="photo" class="w-25">
+                        
+                {% endif %}
+
+            
             <input type="file" class="form-control-file" accept="image/*"  name="photo">
         </div>
 

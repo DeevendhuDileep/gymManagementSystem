@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
@@ -55,7 +56,11 @@ def sign_up(request):
         cpassw = request.POST.get('cpassw')
         gender = request.POST.get('gender')
         mobile = request.POST.get('mobile')
-        photo = request.FILES.get('photo')
+        #photo = request.FILES.get('photo')
+        if request.FILES.get('photo') is not None:
+            photo = request.FILES['photo']
+        else:
+            photo = "/static/image/default.png"
         if cpassw == passw:
             if User.objects.filter(username=uname).exists():
                 messages.info(request, 'Username not available...')
@@ -108,7 +113,16 @@ def edit_profile(request):
         umember.user.email = request.POST.get('email')
         umember.user_address = request.POST.get('address')
         umember.user_mobile = request.POST.get('mobile')
-        umember.user_photo = request.FILES.get('photo')
+        #umember.user_photo = request.FILES.get('photo')
+        if request.FILES.get('photo') is not None:
+            if not umember.user_photo == "/static/image/default.png":
+                os.remove(umember.user_photo.path)
+                umember.user_photo = request.FILES['photo']
+            else:
+                umember.user_photo = request.FILES['photo']
+        else:
+            os.remove(umember.user_photo.path)
+            umember.user_photo = "/static/image/default.png" 
         umember.user.save()
         umember.save()
         return redirect('profile')
